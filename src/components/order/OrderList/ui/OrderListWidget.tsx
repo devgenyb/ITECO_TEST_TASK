@@ -31,7 +31,6 @@ export const OrderListWidget = () => {
 		query: "(max-width: 768px)"
 	});
 
-
 	const { data, isLoading, refetch } = useQuery<
 		IResposePaginated<IOrder>,
 		Error
@@ -64,7 +63,7 @@ export const OrderListWidget = () => {
 	useEffect(() => {
 		if (!data) return;
 		setRef(observerTargetRef.current);
-	}, [list, isGrid]);
+	}, [list, isGrid, isMobile]);
 
 	const observerTargetRef = useRef<HTMLDivElement>(null);
 
@@ -115,9 +114,7 @@ export const OrderListWidget = () => {
 					setCountPage(1);
 				}}
 			/>
-			<StyledButton
-				onClick={() => setIsGrid((prev) => !prev)}
-			>
+			<StyledButton onClick={() => setIsGrid((prev) => !prev)}>
 				{isGrid ? "Строка" : "Сетка"}
 			</StyledButton>
 			<OrderList
