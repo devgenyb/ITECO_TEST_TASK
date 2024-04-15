@@ -77,6 +77,7 @@ const OrderListInner: FC<IProps> = (
 				</div>
 			)}
 			<StyledLoader>{listLoading && <Spin />}</StyledLoader>
+			{!items.length && <div>Данных по Вашему запросу не найдено</div>}
 		</>
 	);
 };

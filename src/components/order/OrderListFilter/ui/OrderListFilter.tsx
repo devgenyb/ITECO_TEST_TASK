@@ -57,7 +57,6 @@ const StyledClear = styled(Typography.Text)`
 	align-items: center;
 	font-size: 0.8rem;
 	text-decoration: underline;
-	cursor: pointer;
 `;
 
 const StyledRow = styled(Row)`
@@ -84,6 +83,10 @@ const StyledButton = styled("button")`
 	border-radius: 5px;
 	cursor: pointer;
 `;
+
+const StyledPointer = styled('span')`
+	cursor: pointer;
+`
 
 interface IPRops {
 	setFilters?: (val: IForm) => void;
@@ -126,6 +129,7 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 						placeholder="№ заказа"
 						value={values.order_number}
 						onChange={handleChange}
+						status={errors.order_number ? "error" : ""}
 					/>
 				</Col>
 			</StyledRow>
@@ -144,6 +148,7 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 							value={values.to}
 							onChange={handleChange}
 							name="to"
+							status={errors.to ? "error" : ""}
 						/>
 						<StyledSwapIcon
 							onClick={() => {
@@ -163,18 +168,19 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 			</StyledRow>
 			<StyledRow gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
 				<Col span={17}>
-					<StyledClear
-						onClick={() => {
-							resetForm();
-						}}
-						type="secondary"
-					>
-						Сбросить фильтры
+					<StyledClear type="secondary">
+						<StyledPointer
+							onClick={() => {
+								resetForm();
+							}}
+						>
+							Сбросить фильтры
+						</StyledPointer>
 					</StyledClear>
 				</Col>
 				<Col span={7}>
 					<StyledButton type="submit">
-						{isLoading ? <Spin /> : 'Поиск'}
+						{isLoading ? <Spin /> : "Поиск"}
 					</StyledButton>
 				</Col>
 			</StyledRow>
