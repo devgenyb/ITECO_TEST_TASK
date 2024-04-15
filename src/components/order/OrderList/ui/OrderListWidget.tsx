@@ -5,6 +5,15 @@ import api, { IResposePaginated } from "@/app/api/fakeServer";
 import OrderListFilter, { IOrderFilters } from "../../OrderListFilter";
 import { OrderList } from "./OrderList";
 import { Button } from "antd";
+import { useMediaQuery } from "react-responsive";
+import styled from "styled-components";
+
+const StyledButton = styled(Button)`
+	margin-bottom: 2rem;
+	@media (max-width: 768px) {
+		display: none;
+	}
+`;
 
 export const OrderListWidget = () => {
 	const [list, setList] = useState<IOrder[]>([]);
@@ -12,9 +21,16 @@ export const OrderListWidget = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const [infinityListLoading, setInfinityListLoading] = useState(false);
 	const [filters, setFilters] = useState<IOrderFilters | null>(null);
-	const [ref, setRef] = useState<undefined | null | HTMLDivElement>(undefined);
+	const [ref, setRef] = useState<undefined | null | HTMLDivElement>(
+		undefined
+	);
 	const [isRefetchFilter, setIsRefetchFilter] = useState(false);
-	const [isGrid, setIsGrid] = useState(true);
+	const [isGrid, setIsGrid] = useState(false);
+
+	const isMobile = useMediaQuery({
+		query: "(max-width: 768px)"
+	});
+
 
 	const { data, isLoading, refetch } = useQuery<
 		IResposePaginated<IOrder>,
@@ -99,13 +115,17 @@ export const OrderListWidget = () => {
 					setCountPage(1);
 				}}
 			/>
-			<Button style={{marginBottom: '2rem'}} onClick={() => setIsGrid(prev => !prev)}>{isGrid ? "Строка" : "Сетка"}</Button>
+			<StyledButton
+				onClick={() => setIsGrid((prev) => !prev)}
+			>
+				{isGrid ? "Строка" : "Сетка"}
+			</StyledButton>
 			<OrderList
 				loading={isLoading}
 				items={list}
 				ref={observerTargetRef}
 				listLoading={infinityListLoading}
-				type={isGrid ? "grid" : "row"}
+				type={!isGrid && !isMobile ? "row" : "grid"}
 			/>
 		</>
 	);

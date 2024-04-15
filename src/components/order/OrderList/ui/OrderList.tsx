@@ -58,9 +58,9 @@ const OrderListInner: FC<IProps> = (
 
 			{type === "grid" && (
 				<div>
-					<Row gutter={[16, 16]}>
+					<Row gutter={[12,12]}>
 						{items.map((item, index) => (
-							<Col span={12} key={item.id}>
+							<Col md={12} span={24} key={item.id}>
 								{index === items.length - 5 ? (
 									<div ref={ref}>
 										<OrderListItem

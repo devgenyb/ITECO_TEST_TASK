@@ -72,6 +72,9 @@ const StaledDatePicker = styled(DatePicker)`
 	&:hover {
 		border-color: green;
 	}
+	@media (max-width: 768px) {
+		margin-top: 1rem;
+	}
 `;
 
 const StyledButton = styled("button")`
@@ -120,10 +123,10 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 	return (
 		<form noValidate onSubmit={handleSubmit}>
 			<StyledRow gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-				<Col className="gutter-row" span={17}>
+				<Col className="gutter-row" xs={24} md={17}>
 					<StyledHeader>Поиск грузов</StyledHeader>
 				</Col>
-				<Col className="gutter-row" span={7}>
+				<Col className="gutter-row" xs={24} md={7}>
 					<StyledInput
 						name="order_number"
 						placeholder="№ заказа"
@@ -134,7 +137,7 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 				</Col>
 			</StyledRow>
 			<StyledRow gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-				<Col className="gutter-row" span={17}>
+				<Col className="gutter-row" xs={24} md={17}>
 					<StyledSwitchWrapper>
 						<StyledSwitchInput
 							placeholder="Откуда"
@@ -158,7 +161,7 @@ export const OrderListFilter: FC<IPRops> = ({ onSubmit, isLoading }) => {
 						/>
 					</StyledSwitchWrapper>
 				</Col>
-				<Col className="gutter-row" span={7}>
+				<Col xs={24} md={7}>
 					<StaledDatePicker
 						placeholder="Дата отгрузки"
 						value={values.order_date}
