@@ -1,12 +1,10 @@
 import { Flex, Layout } from "antd";
 import { Content, Header as AntHeader } from "antd/es/layout/layout";
 import Header from "@/components/Header";
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-interface IProps {
-	children: React.ReactNode;
-}
+interface IProps extends PropsWithChildren {}
 
 const NormalizeStyles = createGlobalStyle`
   * {
@@ -22,7 +20,7 @@ const NormalizeStyles = createGlobalStyle`
 const StyledContent = styled(Content)`
 	margin: 1rem 3rem;
 	@media (max-width: 768px) {
-		margin: 1rem .5rem;
+		margin: 1rem 0.5rem;
 	}
 `;
 

@@ -2,7 +2,7 @@ import { IOrder } from "@/app/api/fakeServer/types";
 import { FC, Ref, forwardRef } from "react";
 import OrderListItem from "../../OrderListItem";
 import styled from "styled-components";
-import { Col, Row, Spin } from "antd";
+import { BackTop, Col, Row, Spin } from "antd";
 import { RowItemSkeleton } from "../../OrderListItem/ui/RowItemSkeleton";
 
 const StypedItemRow = styled("div")`
@@ -39,7 +39,8 @@ const OrderListInner: FC<IProps> = (
 		);
 
 	return (
-		<>
+		<>	
+			<BackTop />
 			{type === "row" && (
 				<div>
 					{items.map((item, index) => (
@@ -58,7 +59,7 @@ const OrderListInner: FC<IProps> = (
 
 			{type === "grid" && (
 				<div>
-					<Row gutter={[12,12]}>
+					<Row gutter={[12, 12]}>
 						{items.map((item, index) => (
 							<Col md={12} span={24} key={item.id}>
 								{index === items.length - 5 ? (

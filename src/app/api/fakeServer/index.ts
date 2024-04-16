@@ -21,9 +21,9 @@ class FakeServer {
 	 * getFakeOrders
 	 */
 	public getFakeOrders(
-		quryString: string
+		queryString: string
 	): Promise<IResposePaginated<IOrder>> {
-		const params = new URLSearchParams(quryString);
+		const params = new URLSearchParams(queryString);
 		const data = Object.fromEntries(params.entries());
 		return new Promise((resolve) => {
 			setTimeout(() => {
@@ -53,32 +53,28 @@ class FakeServer {
 		const res = [];
 		for (let index = 0; index < this.ordersList.length; index++) {
 			const item = this.ordersList[index];
-			let flag = true;
 			if (filter.from && !item.from.city.includes(filter.from)) {
-				flag = false;
-			}
-			if (filter.to && !item.to.city.includes(filter.to)) {
-				flag = false;
-			}
-			if (
+				continue;
+			} else if (filter.to && !item.to.city.includes(filter.to)) {
+				continue;
+			} else if (
 				filter.order_number &&
 				!item.shipment_number.includes(filter.order_number)
 			) {
-				flag = false;
-			}
-			if (filter.order_date) {
-				const filterDate = new Date(filter.order_date.toString())
-				const orderDate = new Date(item.cargo.shipment_date)
+				continue;
+			} else if (filter.order_date) {
+				const filterDate = new Date(filter.order_date.toString());
+				const orderDate = new Date(item.cargo.shipment_date);
 				filterDate.setHours(0, 0, 0, 0);
 				orderDate.setHours(0, 0, 0, 0);
 				const time1 = filterDate.getTime();
 				const time2 = orderDate.getTime();
 				if (time1 !== time2) {
-					flag = false
+					continue;
 				}
 			}
 
-			if (flag) res.push(item);
+			res.push(item);
 		}
 
 		return res;

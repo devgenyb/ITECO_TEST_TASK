@@ -1,6 +1,9 @@
 export const wordCountEnding = (count: number, word: string): string => {
-	if (count === 0 || count === 1) {
+	if (count === 1) {
 		return word;
+	}
+	else if (!count) {
+		return word + "ов";
 	} else if (count < 5) {
 		return word + "a";
 	} else {
